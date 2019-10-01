@@ -1,0 +1,66 @@
+
+
+
+tfs_mkfs(3)           Transtech File System           tfs_mkfs(3)
+
+
+
+NAME
+     tfs_mkfs - Creates a file system on the disk.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_mkfs( unsigned inodes )
+
+ARGUMENTS
+     unsigned inodes
+          The maximum number of files and directories that can be
+          held  in  the  file system.  A fixed amount of space on
+          the disk is allocated for the inode table.
+
+DESCRIPTION
+     A new file system is created on the disk with the number  of
+     inodes  specified  rounded  up to fill an integral number of
+     disk blocks. All previous data on the disk is lost. The file
+     system  must  have  been  initialised  by tfs_init() and not
+     mounted (by tfs_mount()).
+
+RETURNS
+     Returns zero on success and -1 on  error.   tfs_errno  indi-
+     cates the nature of the error.
+
+AVAILABILITY
+     tfs_mkfs is not available in the remote  TFS  library,  only
+     the local library.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

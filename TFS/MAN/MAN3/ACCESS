@@ -1,0 +1,66 @@
+
+
+
+tfs_access(3)         Transtech File System         tfs_access(3)
+
+
+
+NAME
+     tfs_access - Tests for existence and access permissions  for
+     a file.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_access( int pid, char *path, int aperm )
+
+ARGUMENTS
+     int pid
+          Process ID of the logical process.
+
+     char *path
+          Name of the file to test.
+
+     int aperm
+          The desired access permissions.
+
+DESCRIPTION
+     tfs_access() checks if the specified logical process has the
+     access  rights specified by aperm to the file (or directory)
+     specified by path.  The value of aperm is either the bitwise
+     OR  of  the  access  permissions  to  be  checked (TFS_R_OK,
+     TFS_W_OK and TFS_X_OK) or the existence test, TFS_F_OK.
+
+     TFS_F_OK
+          Satisfied if the specified file (or directory) exists.
+
+     TFS_R_OK
+          Satisfied if the specified logical process  has  suffi-
+          cient permissions to read the specified file (or direc-
+          tory).
+
+     TFS_W_OK
+          Satisfied if the specified logical process  has  suffi-
+          cient  permissions  to  write/update the specified file
+          (or directory).
+
+     TFS_X_OK
+          Satisfied if the specified logical process  has  suffi-
+          cient  permissions  to  execute  the specified file (or
+          search the directory). The X-bit is implemented by  TFS
+          but has no significance for regular files.
+
+RETURNS
+     If all the requested access modes are permitted, a value  of
+     zero  is  returned.  If  not,  or  in  case  of error, -1 is
+     returned and tfs_errno indicates the nature of the error.
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

@@ -1,0 +1,66 @@
+
+
+
+tfs_geterr(3)         Transtech File System         tfs_geterr(3)
+
+
+
+NAME
+     tfs_geterr - return TFS process error status
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_geterr(int pid)
+
+
+DESCRIPTION
+     Returns an integer indicating the cause of the any error  in
+     the last command executed with the given process id.
+
+     The return value takes the same values as tfs_errno(3)
+
+
+SEE ALSO
+     tfs_errno(3) tfs_perror(3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

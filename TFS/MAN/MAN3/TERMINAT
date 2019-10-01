@@ -1,0 +1,66 @@
+
+
+
+tfs_terminate(3)      Transtech File System      tfs_terminate(3)
+
+
+
+NAME
+     tfs_terminate - Terminate the file system.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_terminate( int do_fsck )
+
+DESCRIPTION
+     If any processes are currently logged on,  they  are  logged
+     off. All blocks are flushed to disk and the clock process is
+     terminated. After the file system  is  terminated  no  other
+     command may be issued to the file system, except tfs_init().
+
+     The parameter do_fsck determines whether fsck will  be  per-
+     formed when the file system is mounted again. If TFS_DO_FSCK
+     is specified, fsck will be performed at the next mount()  of
+     this  file  system. If TFS_DONT_FSCK is specified, it signi-
+     fies that a fsck isn't needed to  salvage  the  file  system
+     because  the  file  system  was terminated correctly - but a
+     parameter to tfs_mount() (see tfs_mount()) can demand a fsck
+     anyway.
+
+RETURNS
+     Returns zero on success and -1 on  error.   tfs_errno  indi-
+     cates the nature of the error.
+
+AVAILABILITY
+     tfs_terminate is not available in the  remote  TFS  library,
+     only the local library.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

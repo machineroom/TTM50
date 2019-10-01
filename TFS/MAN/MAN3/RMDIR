@@ -1,0 +1,66 @@
+
+
+
+tfs_rmdir(3)          Transtech File System          tfs_rmdir(3)
+
+
+
+NAME
+     tfs_rmdir - Removes an empty directory.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_rmdir( int pid, char *path )
+
+ARGUMENTS
+     int pid
+          Process ID of the logical process.
+
+     char *path
+          Name of directory.
+
+DESCRIPTION
+     The directory given by path is removed. The  directory  must
+     be empty (except '.' and '..' entries). The directory cannot
+     be removed if any logical process has it as  current  direc-
+     tory.
+
+RETURNS
+     Returns zero on success and -1 on  error.   tfs_errno  indi-
+     cates the nature of the error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

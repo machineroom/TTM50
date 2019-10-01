@@ -1,0 +1,132 @@
+
+
+
+tfs_open(3)           Transtech File System           tfs_open(3)
+
+
+
+NAME
+     tfs_open - Opens a file.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_open( int pid, char *path, int o_mode,
+      u_short c_perm )
+
+ARGUMENTS
+     int pid
+          Process ID of the logical process.
+
+     char *path
+          File name.
+
+     int o_mode
+          Specifies in which mode to open the file.
+
+     u_short c_perm
+          If the file is being created, this specifies  the  per-
+          mission bits of the new file.
+
+DESCRIPTION
+     A file descriptor  is  allocated  and  associated  with  the
+     specified  file. All subsequent operations refer to the file
+     by means of that file descriptor. The file pointer is set to
+     the  beginning  of  the  file. If a new file is created, its
+     owner and group are set to the UID and GID of  this  logical
+     process.
+
+     The value of o_mode is the bitwise OR  of  values  from  the
+     following list.
+
+     Exactly one of the following three values  shall  be  speci-
+     fied:
+
+     TFS_O_RDONLY
+          The file is opened for reading only.
+
+     TFS_O_WRONLY
+          The file is opened for writing only.
+
+     TFS_O_RDWR
+          The file is opened for both reading and writing.
+
+     Any combination of the following values may be specified:
+
+     TFS_O_APPEND
+          When the file has been opened and prior to each  write,
+          the file pointer will be set to the end of the file.
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+
+
+
+
+tfs_open(3)           Transtech File System           tfs_open(3)
+
+
+
+     TFS_O_CREAT
+          If the file already exists, this value has no  signifi-
+          cance  (except if also TFS_O_EXCL is specified). If the
+          file doesn't exist, it is created; the file's  user  ID
+          and  group ID are set to the UID and GID of the logical
+          process and the  file's  permission  bits  are  set  to
+          c_perm except those set in the process' UMASK.
+
+     TFS_O_EXCL
+          If both TFS_O_CREAT and TFS_O_EXCL are  specified,  the
+          function  will  fail  if  the file already exists. This
+          value is only significant when  TFS_O_CREAT  is  speci-
+          fied.
+
+     TFS_O_TRUNC
+          If  the  file  is  successfully  opened  TFS_O_RDWR  or
+          TFS_O_WRONLY,  it will be truncated to zero length. The
+          combination of TFS_O_RDONLY and TFS_O_TRUNC is illegal.
+
+     Directory files cannot be opened for writing  (not  even  by
+     the super user).
+
+RETURNS
+     Returns the allocated file descriptor on success and  -1  on
+     error. tfs_errno indicates the nature of the error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    2
+
+
+

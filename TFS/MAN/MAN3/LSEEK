@@ -1,0 +1,66 @@
+
+
+
+tfs_lseek(3)          Transtech File System          tfs_lseek(3)
+
+
+
+NAME
+     tfs_lseek - Sets the file pointer.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     long tfs_lseek( int pid, int filedes, long offset,
+      int whence )
+
+ARGUMENTS
+     int pid
+          Process ID of the logical process.
+
+     int filedes
+          The file descriptor to duplicate.
+
+     long offset
+          The position to set the file pointer.
+
+     int whence
+          Determines how offset is interpreted.
+
+DESCRIPTION
+     The file pointer associated with filedes is set according to
+     the value of whence:
+
+     TFS_SEEK_SET
+          The file pointer is set to offset bytes relative to the
+          beginning of the file.
+
+     TFS_SEEK_CUR
+          The file pointer is set to offset bytes relative to the
+          current position.
+
+     TFS_SEEK_END
+          The file pointer is set to offset bytes relative to the
+          end of the file.
+
+     It is illegal to try to set  the  file  pointer  before  the
+     beginning  of  the  file. The file pointer can be set beyond
+     the end of the file. A read operation beyond the end of  the
+     file  will  return zero bytes. Writing beyond the end of the
+     file creates a hole in the file. Trying to  read  data  from
+     such a hole will return bytes of zero value.
+
+RETURNS
+     Returns the new position of the file  pointer  (relative  to
+     the  beginning  of  the  file)  on  success and -1 on error.
+     tfs_errno indicates the nature of the error.
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

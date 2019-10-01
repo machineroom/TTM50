@@ -1,0 +1,66 @@
+
+
+
+probe(1)               Transtech SCSI TRAM               probe(1)
+
+
+
+NAME
+     probe - Transtech TTM50 SCSI probe utility
+
+SYNOPSIS
+     probe [ <iserver arguments> ] [ -h ]
+
+DESCRIPTION
+     The probe utility is used to determine what SCSI target dev-
+     ices are on the SCSI bus.
+
+     Ensure that the TTM50 is the first processor  in  the  Tran-
+     sputer  network as iserver is used to load and run the Tran-
+     sputer executable probe.btl on the TTM50.
+
+OPTIONS
+     -h   Print help message.
+
+     iserver command line arguments can also be used.
+
+ENVIRONMENT
+     The environment variable ISERVER should be set to  the  full
+     pathname of the Inmos iserver server program.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 1.0         Last change: 18 Mar 1993                    1
+
+
+

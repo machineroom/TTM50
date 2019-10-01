@@ -1,0 +1,66 @@
+
+
+
+tfs_sync(3)           Transtech File System           tfs_sync(3)
+
+
+
+NAME
+     tfs_sync - Flushes the cache.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_sync( void )
+
+DESCRIPTION
+     All buffers in the cache that need to be updated on the disk
+     are  physically  written to the disk. Immediately after per-
+     forming a tfs_sync() (and until any function  that  modifies
+     the  disk  is performed) the file system on the disk will be
+     complete and consistent and a crash will not lead to  incon-
+     sistencies  or  loss of data. Thus it is recommended to per-
+     form tfs_sync() regularly.
+
+RETURNS
+     Returns zero on success and -1 on error. tfs_errno indicates
+     the nature of the error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

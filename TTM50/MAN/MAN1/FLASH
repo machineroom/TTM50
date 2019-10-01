@@ -1,0 +1,66 @@
+
+
+
+flash(1)               Transtech SCSI TRAM               flash(1)
+
+
+
+NAME
+     flash - Transtech TTM50 flash EPROM programming utility
+
+SYNOPSIS
+     flash [ <iserver arguments> ] [ -h ] [ -v ] [ <filename> ]
+
+DESCRIPTION
+     The flash utility is used to  program  the  Transtech  TTM50
+     SCSI  TRAM  flash  EPROM.  This allows the TTM50 to function
+     standalone, that is automatically boot  itself  after  reset
+     using the Transputer's boot from ROM mode.
+
+     The data to write into the TTM50 is taken from the .hex file
+     filename as produced by the Inmos ieprom utility.
+
+     Ensure that the TTM50 is the first processor  in  the  Tran-
+     sputer  network as iserver is used to load and run the Tran-
+     sputer executable flash.btl on the TTM50.
+
+     A 12V supply is required to program the TTM50  flash  EPROM.
+     Set this to 0V using a jumper when not programming the flash
+     EPROM.
+
+OPTIONS
+     -h   Print help message.
+
+     -v   Verbose mode.
+
+     <filename>
+          Name of the hex file.
+
+     iserver command line arguments can also be used.
+
+ENVIRONMENT
+     The environment variable ISERVER should be set to  the  full
+     pathname of the Inmos iserver server program.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 1.0         Last change: 25 Mar 1993                    1
+
+
+

@@ -1,0 +1,66 @@
+
+
+
+tfs_part_sync(3)      Transtech File System      tfs_part_sync(3)
+
+
+
+NAME
+     tfs_part_sync - Flushes a part of the cache.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_part_sync( int blocks )
+
+ARGUMENTS
+     int blocks
+          The maximum number of blocks to be written to the disk.
+
+DESCRIPTION
+     Since the cache is quite large,  tfs_sync()  may  take  some
+     time.  In  some  applications  it might not be acceptable to
+     hold up the file system for as long as  it  takes  to  do  a
+     tfs_sync().   tfs_part_sync()  enables  the sync to be split
+     into smaller chunks.
+
+     The number of blocks in the cache is defined by the constant
+     TFS_CACHE_SIZE  (this  constant  is for information only; it
+     cannot  be  changed).  Performing  n  consecutive  call   to
+     tfs_part_sync()  each  with TFS_CACHE_SIZE/n as parameter is
+     equivalent to one call to tfs_sync().
+
+RETURNS
+     Returns zero on success and -1 on  error.   tfs_errno  indi-
+     cates the nature of the error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

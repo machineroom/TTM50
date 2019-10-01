@@ -1,0 +1,66 @@
+
+
+
+tfs_perror(3)         Transtech File System         tfs_perror(3)
+
+
+
+NAME
+     tfs_perror - print TFS process error message
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_perror(int pid, char *prefix);
+
+     extern int tfs_nerr;
+
+     extern char *tfs_errlist[];
+
+
+DESCRIPTION
+     tfs_perror prints an  error  message  corresponding  to  the
+     error status of the specified process.  In tfs.lib, the mes-
+     sage is printed to the  TFS  error  channel,  (specified  in
+     tfs_init),  whilst  in  rtfs.lib,  it is printed to standard
+     error.
+
+     tfs_errlist is an array of strings of these error  messages,
+     which can be indexed by tfs_errno.
+
+     tfs_nerr is one more than the maximum valid tfs_errno.
+
+SEE ALSO
+     tfs_errno(3) tfs_geterr(3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

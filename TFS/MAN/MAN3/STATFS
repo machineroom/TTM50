@@ -1,0 +1,66 @@
+
+
+
+tfs_statfs(3)         Transtech File System         tfs_statfs(3)
+
+
+
+NAME
+     tfs_statfs - Get file-system information.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_statfs( int pid, struct tfs_statfs_t *sbuf )
+
+
+ARGUMENTS
+     int pid
+          Process ID of the logical process.
+
+     tfs_statfs_t *sbuf
+          Pointer to structure to fill out with information.
+
+DESCRIPTION
+     The structure referenced by sbuf is filled out with informa-
+     tion  pertaining  to the file system.  A tfs_statfs_t struc-
+     ture contains the following fields:
+
+     long f_type    type of info, zero for now
+
+     long f_bsize   fundamental file system block size
+
+     long f_blocks  total blocks in file system
+
+     long f_bfree   number of free blocks
+
+     long f_bavail  same as f_bfree
+
+     long f_files   total file nodes in file system
+
+     long f_ffree   free file nodes in file system
+
+     long f_fsid    file system ID
+
+
+RETURNS
+     Returns zero on success and -1 on  error.   tfs_errno  indi-
+     cates the nature of the error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

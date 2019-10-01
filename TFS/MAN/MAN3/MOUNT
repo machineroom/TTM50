@@ -1,0 +1,66 @@
+
+
+
+tfs_mount(3)          Transtech File System          tfs_mount(3)
+
+
+
+NAME
+     tfs_mount - Mounts the disk as a file system.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_mount( int do_fsck )
+
+DESCRIPTION
+     Mounts the disk as a file system. The disk  must  contain  a
+     valid  file  system previously created by tfs_mkfs() and not
+     already be mounted.  Before the disk is  mounted,  its  file
+     system  is  checked  for consistency by a procedure known as
+     fsck. Inconsistencies in the file system are likely to occur
+     if  the systems crashes while there are buffers in the cache
+     that need to be updated on the disk. If the system is always
+     terminated  properly  with a call to tfs_terminate(), incon-
+     sistencies  cannot  occur.  If  the  value  of  do_fsck   is
+     TFS_DO_FSCK,  fsck  will  be  performed. If TFS_DONT_FSCK is
+     specified, fsck will only be performed if  the  file  system
+     was  not  terminated properly last time is was mounted or it
+     was terminated with TFS_DO_FSCK (see tfs_terminate()).
+
+     Any inconsistencies found during fsck are reported (if error
+     reporting  is  turned  on)  and  corrected. Depending on the
+     severity of the inconsistencies they can  lead  to  loss  of
+     data.  But  fsck will always leave the file system in a con-
+     sistent state. Performing fsck takes some time depending  on
+     the  size  of  the disk (actually the number of inodes allo-
+     cated and the number of  files  on  the  disk)  -  typically
+     several minutes.
+
+RETURNS
+     Returns zero on success and -1 on  error.   tfs_errno  indi-
+     cates the nature of the error.
+
+AVAILABILITY
+     tfs_mount is not available in the remote TFS  library,  only
+     the local library.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

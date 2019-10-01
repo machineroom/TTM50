@@ -1,0 +1,66 @@
+
+
+
+scsi_reset_bus(3)      Transtech SCSI TRAM      scsi_reset_bus(3)
+
+
+
+NAME
+     scsi_reset_bus, scsi_reset_device - Reset SCSI bus or device
+
+SYNOPSIS
+     #include <scsi.h>
+
+     void scsi_reset_bus( void );
+     int scsi_reset_device( struct scsi_address *address );
+
+DESCRIPTION
+     The function scsi_reset_bus asserts the SCSI bus reset  line
+     causing  all  devices  to revert to a known state.  Use this
+     function only in the event of catastrophe.
+
+     The function scsi_reset_device sends a SCSI bus device reset
+     message to the specified SCSI device.  This should cause the
+     device to revert to a power on state.
+
+PARAMETERS
+     address
+          Address of the SCSI device. Use a logical  unit  number
+          (lun)  for  which there is no outstanding SCSI transac-
+          tion otherwise this function will block.
+
+RETURN VALUE
+     The function scsi_reset_device returns zero on success or  a
+     negative integer on failure.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 1.0         Last change: 25 Mar 1993                    1
+
+
+

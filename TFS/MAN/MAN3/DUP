@@ -1,0 +1,66 @@
+
+
+
+tfs_dup(3)            Transtech File System            tfs_dup(3)
+
+
+
+NAME
+     tfs_dup - Duplicates a file descriptor.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_dup( int pid, int filedes )
+
+ARGUMENTS
+     int pid
+          Process ID of the logical process.
+
+     int filedes
+          The file descriptor to duplicate.
+
+DESCRIPTION
+     Another file descriptor is allocated referring to  the  same
+     file as filedes.
+
+RETURNS
+     Returns the allocated file descriptor on success and  -1  on
+     error. tfs_errno indicates the nature of the error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

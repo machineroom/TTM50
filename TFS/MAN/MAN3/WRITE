@@ -1,0 +1,66 @@
+
+
+
+tfs_write(3)          Transtech File System          tfs_write(3)
+
+
+
+NAME
+     tfs_write - Writes a block of data to a file.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_write( int pid, int filedes, char *buf,
+      int nbytes )
+
+ARGUMENTS
+     int pid
+          Process ID of the logical process.
+
+     int filedes
+          Specifies the file to write to.
+
+     char *buf
+          A pointer to a buffer holding the data.
+
+     int nbytes
+          How many bytes to write.
+
+DESCRIPTION
+     write() attempts to write nbytes to the  file  specified  by
+     filedes at the file's current position. At most nbytes bytes
+     will be written. Fewer than nbytes bytes will be written  if
+     the  end of the disk becomes full or an error occurs. If the
+     operation is successful, the file  pointer  will  be  incre-
+     mented  as many bytes as are written; in case of error it is
+     unaffected.
+
+RETURNS
+     The actual number of bytes written is returned or -1  if  an
+     error occurs. tfs_errno indicates the nature of the error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

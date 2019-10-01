@@ -1,0 +1,132 @@
+
+
+
+scsi_config(3)         Transtech SCSI TRAM         scsi_config(3)
+
+
+
+NAME
+     scsi_config_read,   scsi_config_write,    scsi_config_reset,
+     scsi_config_abort - Use the SCSI TRAM configuration link
+
+SYNOPSIS
+     #include <scsi.h>
+
+     int scsi_config_read( struct scsi_config *config,
+      int lock );
+     int scsi_config_write( struct scsi_config *config,
+      int lock );
+     void scsi_config_reset( int lock );
+     void scsi_config_abort( struct scsi_config *config,
+      int lock );
+
+DESCRIPTION
+     These functions are used to read data from, write  data  to,
+     reset,  and abort commands using the SCSI TRAM configuration
+     link.
+
+     The function scsi_config_read reads data from the configura-
+     tion link.
+
+     The function scsi_config_write writes data to the configura-
+     tion link.
+
+     The  function  scsi_config_reset  resets  the  configuration
+     link.
+
+     The  function  scsi_config_abort  aborts  reads  or   writes
+     currently outstanding on the configuration link.
+
+PARAMETERS
+     config
+          Pointer to a configuration link  request  structure  as
+          defined below.  If the config parameter to the function
+          scsi_config_abort is NULL then  all  transactions  out-
+          standing  on the configuration link are aborted, other-
+          wise just the  transaction  with  the  matching  config
+          parameter is aborted.
+
+     lock If  non-zero  then  scsi_lock  is   used   before   and
+          scsi_unlock is used after attempting the command.  Nor-
+          mally this should be non-zero, the only exception is in
+          target  callback  functions  when  this could cause the
+          system to hang.
+
+     The elements of the scsi_config structure are:
+
+     data Pointer to the data to be transferred to  or  from  the
+          configuration link.
+
+
+
+
+Release 1.0         Last change: 25 Mar 1993                    1
+
+
+
+
+
+
+scsi_config(3)         Transtech SCSI TRAM         scsi_config(3)
+
+
+
+     data_len
+          Number of bytes of data to transfer.
+
+     residue
+          On return contains the number of bytes not transferred.
+
+     timeout
+          Timeout in seconds for the  read  or  write  operation.
+          Zero specifies no timeout.
+
+RETURN VALUE
+     The functions scsi_config_read and scsi_config_write  return
+     zero on success or a negative integer on failure.  The resi-
+     due field is set to the number of data bytes which were  not
+     transferred to or from the configuration link.
+
+NOTES
+     Configuration link reads or writes can call scsi_unlock  and
+     subsequently  scsi_lock  irrespective  of the value of lock.
+     Thus it is recommended that target  callback  routines  only
+     use these two functions when disconnected.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 1.0         Last change: 25 Mar 1993                    2
+
+
+

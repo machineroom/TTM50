@@ -1,0 +1,15 @@
+TFS V2.0 DOS Wed Apr 28 09:39:26 BST 1993
+12
+bin/tfsh.btl	95613	1587
+bin/tfsh_11.btl	81173	13741
+bin/tfsh.exe	12067	53740
+libs/tfs_11.lib	66944	16081
+libs/tfs.lib	63929	29254
+libs/tfs.h	6246	1266
+libs/rtfs.lib	40885	54319
+libs/tfserver.lku	77189	34306
+libs/tfserver.lib	21373	43645
+libs/tfs_serv.tco	2466	57837
+libs/iorouter.lku	22782	44742
+libs/hostmux.lku	7388	15533
+38371

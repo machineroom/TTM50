@@ -1,0 +1,132 @@
+
+
+
+tfs_init(3)           Transtech File System           tfs_init(3)
+
+
+
+NAME
+     tfs_init - Initialise the library.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_init( unsigned fs_id, int scsi_target_id,
+      int link_no, int cache_mode, time_t sys_time,
+      Channel *err_chan, int err_mode )
+
+ARGUMENTS
+     unsigned fs_id
+          ID assigned to this file system. In practice only  used
+          for error messages.
+
+     int scsi_target_id
+          The physical SCSI ID of the disk. The LUN (Logical Unit
+          Number i.e. partition) used is zero.
+
+     int link_no
+          The number [0..3] of the physical  transputer  link  on
+          the file system TRAM connecting the file system TRAM to
+          the SCSI TRAM.  In implementations where  TFS  runs  on
+          the  SCSI  TRAM  (such as the TTM50), this parameter is
+          ignored.
+
+     int cache_mode
+          Either TFS_WRITE_BACK or TFS_WRITE_THROUGH.   In  write
+          through  mode  all blocks are updated physically on the
+          disk immediately when they are changed. In  write  back
+          mode  only  blocks  important  to file system integrity
+          (inodes and indirect blocks) are  updated  immediately.
+          The  less  important  blocks (data blocks and bit maps)
+          are not updated until they are evicted from  the  cache
+          (using a least-recently-used algorithm).
+
+     time_t sys_time
+          The system time in seconds since January 1st 1970.  The
+          file  system  maintains  its own clock process which is
+          initialised to this value. The file system time is used
+          to time stamp file modifications.
+
+     Channel *err_chan
+          If error reporting is enabled, error messages and warn-
+          ings are sent out on this channel. The protocol used is
+          an integer count followed by an  array  of  characters.
+          The array contains a '\0' terminator.
+
+     int err_mode
+          Either TFS_ERROR_MODE_ON or TFS_ERROR_MODE_OFF.  Deter-
+          mines  whether error messages and warnings are sent out
+          on err_chan or  not.  It  is  strongly  recommended  to
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+
+
+
+
+tfs_init(3)           Transtech File System           tfs_init(3)
+
+
+
+          arrange  for error messages to reach the operator. Only
+          the foolhardiest user will ignore any  the  error  mes-
+          sages  as  they all indicate a serious problem with the
+          disk/file system.
+
+DESCRIPTION
+     The file system is initialised including starting  the  file
+     system clock process. The disk is initialised and its physi-
+     cal parameters are interrogated.
+
+RETURNS
+     Returns zero on success and -1 on  error.   tfs_errno  indi-
+     cates the nature of the error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    2
+
+
+

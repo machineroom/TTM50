@@ -1,0 +1,29 @@
+						@(#)readme	1.1
+
+		IOROUTER EXAMPLE
+		
+This example shows how to connect one or more
+standard toolset programs to the TFS disk.
+
+It uses iorouter.lku and tfserver.lku
+
+The program requires a user tram and a TTM50, connected
+in a 2-1 pipeline.  The virtual link configurer, icvconf,
+is needed to configure this example, and is strongly
+recommended if you intend to use tfserver or iorouter.
+
+It runs any number of standard user programs, as separate
+.lku processes on the user tram.  The number of user processes
+is set by the value "n_clients" in the configuration file.
+
+Note that for each user process, a separate iorouter is
+included between the user and the hostmux.  tfserver has
+n_clients clients.  This is the most efficient way of arranging
+it as tfserver is multithreaded and can process requests
+in parallel.
+
+A less efficient way, that saves memory space on the user
+tram, is to place the iorouter between hostmux and the host
+link.  In this case tfserver has only one client, and requests
+are processed one at a time.
+

@@ -1,0 +1,66 @@
+
+
+
+scsi_lock(3)           Transtech SCSI TRAM           scsi_lock(3)
+
+
+
+NAME
+     scsi_lock, scsi_unlock - Lock or unlock SCSI system
+
+SYNOPSIS
+     #include <scsi.h>
+
+     void scsi_lock( void );
+     void scsi_unlock( void );
+
+DESCRIPTION
+     These functions lock and unlock the  SCSI  system.   In  the
+     locked state no other process can access the SCSI system.
+
+     These functions are called internally by other SCSI  library
+     functions.   The only legitimate use by the user are in tar-
+     get callback functions where after a disconnect  scsi_unlock
+     can be used to enable other outstanding SCSI transactions to
+     proceed.  The function scsi_lock should be called  prior  to
+     reselection or aborting the target transaction.
+
+     In the locked state it is guaranteed that only  one  process
+     at a time can call the target callback function.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 1.0         Last change: 25 Mar 1993                    1
+
+
+

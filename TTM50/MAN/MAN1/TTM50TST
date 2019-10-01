@@ -1,0 +1,66 @@
+
+
+
+ttm50tst(1)            Transtech SCSI TRAM            ttm50tst(1)
+
+
+
+NAME
+     ttm50tst - Transtech TTM50 SCSI TRAM test utility
+
+SYNOPSIS
+     flash [ <iserver arguments> ] [ -h ] [ -v ]
+
+DESCRIPTION
+     The ttm50tst utility is used to  test  the  Transtech  TTM50
+     SCSI TRAM.
+
+     Ensure that the TTM50 is the first processor  in  the  Tran-
+     sputer  network as iserver is used to load and run the Tran-
+     sputer executable ttm50tst.btl on the TTM50.
+
+OPTIONS
+     -h   Print help message.
+
+     -v   Verbose mode.
+
+     iserver command line arguments can also be used.
+
+ENVIRONMENT
+     The environment variable ISERVER should be set to  the  full
+     pathname of the Inmos iserver server program.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 1.0          Last change: 6 Apr 1993                    1
+
+
+

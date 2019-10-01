@@ -1,0 +1,17 @@
+
+TTYPE= -t8
+MEM= -M 4M
+LIBS= tfs.lib ttm50.lib
+
+all: fulltest.btl mkfs.btl
+
+mkfs.btl: mkfs.c
+	icc $(TTYPE) mkfs.c
+	ilink $(TTYPE) mkfs.tco $(LIBS) -f startup.lnk
+	icollect -t $(MEM) mkfs.lku
+
+fulltest.btl: fulltest.c
+	icc $(TTYPE) fulltest.c
+	ilink $(TTYPE) fulltest.tco $(LIBS) -f startup.lnk
+	icollect -t $(MEM) fulltest.lku
+

@@ -1,0 +1,198 @@
+
+
+
+tfserver.lku(2)                TFS                tfserver.lku(2)
+
+
+
+NAME
+     tfserver.lku - Provide remote access to TFS disk
+
+SYNOPSIS
+     val TFS_WRITE_BACK 9;
+     val TFS_WRITE_THROUGH 8;
+
+     process (
+       stacksize = 20K,
+       heapsize = 100K,
+       interface (
+             input  from_host,
+             output to_host,
+             output to_clients[n],
+             input  from_clients[n],
+             int    n_clients=n,
+             int    fs_id=f,
+             int    scsi_target_id=id,
+             int    link_no=link,
+             int    cache_mode=TFS_WRITE_BACK,
+             int    verbosity=msg_level
+          )
+
+       ) tfserver;
+
+     use "tfserver.lku" for tfserver;
+
+
+
+DESCRIPTION
+     tfserver is a transputer process  to  allow  access  to  the
+     Transtech File System from other processes.  It is connected
+     to each client process by a pair of channels. It  is  optim-
+     ised  to  allow concurrent use from multiple processes, with
+     I/O on all channels overlapped with access to the disk.
+
+     Host channels must be connected to allow tfserver to  obtain
+     the  clock  time  from the host, and to print important mes-
+     sages to do with the operation of the disk.  A host  channel
+     multiplexor  such  as hostmux allows the host channels to be
+     shared between tfserver and user processes.  Because of  the
+     number  of  channels  that  need to be connected in any non-
+     trivial  system,  the  use  of  the  Inmos  Virtual  Routing
+     software is strongly recommended.
+
+     The Configuration parameters are as follows:
+
+     from_host, to_host
+          Iserver channels to host.
+
+     to_clients, from_clients
+          Arrays of channels to client processes.
+
+
+
+Release 2.0         Last change: 20 Feb 1993                    1
+
+
+
+
+
+
+tfserver.lku(2)                TFS                tfserver.lku(2)
+
+
+
+     n_clients
+          The number of client channels.
+
+     fs_id, scsi_target_id, link_no, cache_mode
+          Integer arguments passed to tfs_init(3).
+
+     verbosity
+          An integer parameter controlling the level of detail of
+          messages  from the tfserver.  The higher the number the
+          more information is provided. The value is  interpreted
+          as follows:
+
+            0 - no messages are ever printed.
+            1 - messages critical to file system
+            2 - messages critical to a client session
+            3 - displays logon and logoff messages
+            4 - report all error conditions, even non-fatal ones
+            5 - report opening and closing of files
+            6 - report all operation except read and write
+            7 - report read and write operations
+            8 - report request packet tags
+
+     Note that even with message level 0, the tfserver must still
+     be connected to the host by iserver channels.
+
+     A level of 2 is recommended for normal use.   Higher  levels
+     may be used for debugging.
+
+     The tfserver is also provided in a form that can  be  linked
+     with the TFS library, to port it to different SCSI interface
+     hardware.  The command to do this is:
+
+          % ilink -t8 -o tfserver.lku tfs_serv.tco tfserver.lib \
+          tfs.lib ttm50.lib -f startup.lib
+
+     where tfs.lib and ttm50.lib may be replaced  with  libraries
+     appropriate for the SCSI interface.
+
+ENVIRONMENT
+     The ISEARCH environment variable should include the TFS libs
+     directory.  Don't  forget the slash at the end of the direc-
+     tory name.
+
+FILES
+     $TFS/libs/tfserver.lku - tfserver for TTM50
+     $TFS/libs/tfserver.lib - tfserver library allows relinking
+                     with other TFS libraries
+     $TFS/libs/tfs_serv.tco - main entry point for relinking
+
+
+SEE ALSO
+     iorouter(2) tfs_connect(3) hostmux(2)
+
+
+
+Release 2.0         Last change: 20 Feb 1993                    2
+
+
+
+
+
+
+tfserver.lku(2)                TFS                tfserver.lku(2)
+
+
+
+BUGS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 20 Feb 1993                    3
+
+
+
+
+
+

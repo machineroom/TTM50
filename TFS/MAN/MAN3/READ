@@ -1,0 +1,66 @@
+
+
+
+tfs_read(3)           Transtech File System           tfs_read(3)
+
+
+
+NAME
+     tfs_read - Reads a block of data from a file.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_read( int pid, int filedes, char *buf,
+      int nbytes )
+
+ARGUMENTS
+     int pid
+          Process ID of the logical process.
+
+     int filedes
+          Specifies the file to read from.
+
+     char *buf
+          A pointer to a buffer where the data is put.
+
+     int nbytes
+          How many bytes to read.
+
+DESCRIPTION
+     read() attempts to read nbytes from the  file  specified  by
+     filedes at the file's current position. At most nbytes bytes
+     will be read. Fewer than nbytes bytes will be  read  if  the
+     end of the file is reached or an error occurs. If the opera-
+     tion is successful, the file pointer will be incremented  as
+     many bytes as are read; in case of error it is unaffected.
+
+RETURNS
+     The actual number of bytes read is  returned  or  -1  if  an
+     error occurs. tfs_errno indicates the nature of the error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

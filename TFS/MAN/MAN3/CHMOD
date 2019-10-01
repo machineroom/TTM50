@@ -1,0 +1,132 @@
+
+
+
+tfs_chmod(3)          Transtech File System          tfs_chmod(3)
+
+
+
+NAME
+     tfs_chmod - Change the access permissions of a file.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_chmod( int pid, char *path, int perm )
+
+ARGUMENTS
+     int pid
+          Process ID of the logical process.
+
+     char *path
+          Name of the file to test.
+
+     int perm
+          The new access permissions.
+
+DESCRIPTION
+     The access permissions (the RWX-bits) of the file  specified
+     by  path  is  set  to  the value perm.  The value of perm is
+     specified as a bitwise OR of any combination of the  follow-
+     ing values:
+
+     TFS_S_IRUSR
+          The owner of the file has read permission.
+
+     TFS_S_IWUSR
+          The owner of the file has write permission.
+
+     TFS_S_IXUSR
+          The owner of the file has execute permission. Only sig-
+          nificant for directories.
+
+     TFS_S_IRGRP
+          Users (processes) in the same group as  the  file  have
+          read permission.
+
+     TFS_S_IWGRP
+          Users (processes) in the same group as  the  file  have
+          write permission.
+
+     TFS_S_IXGRP
+          Users (processes) in the same group as  the  file  have
+          execute permission. Only significant for directories.
+
+     TFS_S_IROTH
+          Other users (processes) have read permission.
+
+     TFS_S_IWOTH
+          Other users (processes) have write permission.
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+
+
+
+
+tfs_chmod(3)          Transtech File System          tfs_chmod(3)
+
+
+
+     TFS_S_IXOTH
+          Other users (processes) have execute  permission.  Only
+          significant for directories.
+
+     TFS_S_ISUID and TFS_S_ISGID
+          The SUID and SGID bits are implemented but not signifi-
+          cant in TFS. A write to a regular file will clear these
+          two bits.
+
+     Only the owner of the file or the  super  user  may  execute
+     tfs_chmod().
+
+RETURNS
+     Returns zero on success and -1 on  error.   tfs_errno  indi-
+     cates the nature of the error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    2
+
+
+

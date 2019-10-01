@@ -1,0 +1,66 @@
+
+
+
+tfs_offline(3)        Transtech File System        tfs_offline(3)
+
+
+
+NAME
+     tfs_offline - Terminate the file system and stop the disk.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_offline( void )
+
+DESCRIPTION
+     tfs_offline provides a way of stopping the disk, and  allow-
+     ing  removal  of removable media disks.  There is no need to
+     call tfs_terminate after calling tfs_offline.  The disk  may
+     be  started again, (with a fresh file system if the disk has
+     been replaced) by calling tfs_init.
+
+     If any processes are currently logged on,  they  are  logged
+     off. All blocks are flushed to disk and the clock process is
+     terminated.  After the file system is  terminated  no  other
+     command may be issued to the file system, except tfs_init().
+
+     When the disk that was put offline is next mounted,  a  file
+     system check is automatically performed.
+
+RETURNS
+     Returns zero on success and -1 on  error.   tfs_errno  indi-
+     cates the nature of the error.
+
+AVAILABILITY
+     tfs_offline is not available in the remote TFS library, only
+     the local library.
+
+BUGS
+     Some SCSI disks do not stop their motor when the  stop  com-
+     mand is issued.  Refer to the manual for the disk drive.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

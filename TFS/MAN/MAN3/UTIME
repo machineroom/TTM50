@@ -1,0 +1,66 @@
+
+
+
+tfs_utime(3)          Transtech File System          tfs_utime(3)
+
+
+
+NAME
+     tfs_utime - Set the modification time of a file.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_utime( int pid, char *path, time_t *tim )
+
+ARGUMENTS
+     int pid
+          Process ID of the logical process.
+
+     char *path
+          Name of the file to test.
+
+     time_t *tim
+          A pointer to the new time.
+
+DESCRIPTION
+     The modification time of the specified file is  set  to  the
+     value  pointed to by tim.  tim may be NULL in which case the
+     current time is used (as given by the file system clock).
+
+     The time is measured in seconds since 1.1.1970.
+
+RETURNS
+     Returns zero on success and -1 on  error.   tfs_errno  indi-
+     cates the nature of the error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

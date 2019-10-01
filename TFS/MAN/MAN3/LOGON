@@ -1,0 +1,66 @@
+
+
+
+tfs_logon(3)          Transtech File System          tfs_logon(3)
+
+
+
+NAME
+     tfs_logon - Logon/create a logical process.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_logon( u_short uid, u_short gid )
+
+ARGUMENTS
+     u_short uid
+          User ID of the physical process  associated  with  this
+          logical process.
+
+     u_short gid
+          Group ID of the physical process associated  with  this
+          logical process.
+
+DESCRIPTION
+     A new process ID is allocated and a new logical  process  is
+     created  with  the specified UID and GID. The current direc-
+     tory of the process is set to '/' and the UMASK  is  set  to
+     TFS_DEFAULT_UMASK (022).
+
+RETURNS
+     Returns the allocated process ID on success and -1 on error.
+     tfs_errno indicates the nature of the error.
+
+AVAILABILITY
+     tfs_logon is not available in the remote TFS  library,  only
+     the local library.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

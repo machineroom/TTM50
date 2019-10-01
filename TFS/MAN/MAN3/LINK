@@ -1,0 +1,66 @@
+
+
+
+tfs_link(3)           Transtech File System           tfs_link(3)
+
+
+
+NAME
+     tfs_link - Creates a new link to an existing file.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_link( int pid, char *path1, char *path2 )
+
+ARGUMENTS
+     int pid
+          Process ID of the logical process.
+
+     char *path1
+          Name of an existing file.
+
+     char *path2
+          Name of new link.
+
+DESCRIPTION
+     The new  directory  entry  specified  by  path2  is  created
+     referencing the same file as path1.
+
+     It is not possible to have multiple links to directories.
+
+RETURNS
+     Returns zero on success and -1 on  error.   tfs_errno  indi-
+     cates the nature of the error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

@@ -1,0 +1,66 @@
+
+
+
+disktest(1)            Transtech SCSI TRAM            disktest(1)
+
+
+
+NAME
+     disktest - Transtech TTM50 SCSI TRAM disk test utility
+
+SYNOPSIS
+     disktest [ <iserver arguments> ] [ -h ] [ -v ] [ -c ]  [  -i
+     id ] [ -l lun ]
+
+DESCRIPTION
+     The disktest utility is used to perform tests on a disk con-
+     nected to a Transtech TTM50 SCSI TRAM.
+
+     During the course of the tests, up to 1MB of data is written
+     to  the  disk  and  then  it is read back again.  Backup any
+     important data from the tested disk before running  disktest
+     as this may well be overwritten.
+
+     Ensure that the TTM50 is the first processor  in  the  Tran-
+     sputer  network as iserver is used to load and run the Tran-
+     sputer executable disktest.btl on the TTM50.
+
+OPTIONS
+     -h   Print help message.
+
+     -v   Verbose mode.
+
+     -c   Perform continuous tests.
+
+     -i id
+          Disk SCSI id. Default is 0.
+
+     -l lun
+          Disk logical unit number. Default is 0.
+
+     iserver command line arguments can also be used.
+
+ENVIRONMENT
+     The environment variable ISERVER should be set to  the  full
+     pathname of the Inmos iserver server program.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 1.0          Last change: 2 Apr 1993                    1
+
+
+

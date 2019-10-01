@@ -1,0 +1,198 @@
+
+
+
+iorouter.lku(2)                TFS                iorouter.lku(2)
+
+
+
+NAME
+     iorouter.lku - route iserver packets to multiple TFS disks
+
+SYNOPSIS
+     process (
+       stacksize = 10K,
+       heapsize = 50K,
+       interface (
+
+             input from_host,   output to_host,
+             input from_client, output to_client,
+
+             char  tag1[taglen1]=tagstr1,
+             input from_tfs1, output to_tfs1,
+             int   num1=0,
+
+             char  tag2[taglen2]=tagstr2,
+             input from_tfs2[n2], output to_tfs2[n2],
+             int   num2=n2,
+
+             ...
+
+             )
+       ) iorouter;
+
+     use "iorouter.lku" for iorouter;
+
+
+
+DESCRIPTION
+     The iorouter is a process that sits between a standard  user
+     process  and the host, intercepting I/O requests and sending
+     them to the Transtech File  System  (TFS).   It  allows  any
+     toolset  process,  including  i860  processes, to access any
+     number of connected disks.
+
+     When a file is opened, iorouter examines  the  name  of  the
+     file.   If  it contains a colon, the part of the name before
+     the first colon is taken as a "tag".  The  tag  is  compared
+     with a list of tags, each of which is associated with a par-
+     ticular file system, and the request is routed to  the  file
+     system  with  a  matching  tag.   The  tag and the colon are
+     stripped from the request before it is sent on.
+
+     If the tag did not match any of the stored tags, or  if  the
+     name  does  not  contain  a  colon, then the request is sent
+     unmodified to the host.
+
+     When  a  file  has  been  opened,  the  file  descriptor  is
+     registered  and  translated  by iorouter.  I/O requests that
+     use a file descriptor are intercepted, the  file  descriptor
+     is  translated back to the one given by the file system, and
+
+
+
+Release 2.0         Last change: 20 Feb 1993                    1
+
+
+
+
+
+
+iorouter.lku(2)                TFS                iorouter.lku(2)
+
+
+
+     the request is routed to the file system on which that  file
+     was opened.
+
+     The configuration language interface takes a variable number
+     of  arguments,  depending  on  how many disks are connected.
+     The first four parameters are always given:
+
+          input from_host, output to_host
+
+     Iserver channels connected to host.
+
+          input from_client, output to_client
+
+     Iserver channels connected to user process.
+
+     The remaining parameters are in groups  of  four  arguments.
+     Each  group  describes  either a single disk, or an array of
+     disks.  Any number of such groups may  be  added.   Use  the
+     single  disk varient if the number of disks in the system is
+     known in advance.  Each disk is known  by  a  distinct  name
+     tag.   Use  the  array varient if the number of disks is not
+     known, and where the same configuration file may be used  to
+     set  up systems with diffent numbers of disks.  The disks in
+     the array are given names by appending a digit to the speci-
+     fied tag.
+
+          char tag[taglen]=tagstr,
+          input from_tfs, output to_tfs,
+          int num=0
+
+     Because the "num" parameter is zero, this is  treated  as  a
+     single  disk  description.  "tagstr" specifies a tag string,
+     which must be explicitly terminated with a "\0".  "from_tfs"
+     and "to_tfs" are channels to a TFS server process.
+
+          char tag[taglen]=tagstr,
+          input from_tfs[n], output to_tfs[n],
+          int num=n
+
+     Because "num" is greater than zero, this group is treated as
+     a  disk  array.   The  tags for the disks are generated from
+     "tagstr" by appending a decimal number, starting with  zero.
+     "from_tfs"  and  "to_tfs" are now arrays of channels, a pair
+     connected to each TFS server process.
+
+     Iorouter automatically connects to each  server  during  its
+     initialization,  using  user  and  group  ID  taken from the
+     environment variables TFS_UID and TFS_GID.
+
+
+ENVIRONMENT
+     TFS_UID
+
+
+
+Release 2.0         Last change: 20 Feb 1993                    2
+
+
+
+
+
+
+iorouter.lku(2)                TFS                iorouter.lku(2)
+
+
+
+          User ID as a decimal number
+
+     TFS_GID
+          Group ID as a decimal number
+
+FILES
+     $TFS/libs/iorouter.lku
+
+
+SEE ALSO
+     tfserver(2) tfs_connect(3) hostmux(2)
+
+
+BUGS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 20 Feb 1993                    3
+
+
+
+
+
+

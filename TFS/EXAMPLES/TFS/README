@@ -1,0 +1,25 @@
+						@(#)readme	1.1
+
+		Local TFS library examples
+
+	These example programs illustrate the use of some of
+	the local TFS library calls.  They should be compiled
+	and linked with tfs.lib and a library for your SCSI
+	module, such as ttm50.lib.
+
+	These programs run on the SCSI Tram itself, and it
+	should be the first tram in the network.
+
+	
+	mkfs.c 		Code to make a new file system on the
+			disk.  THIS WILL DESTROY ALL DATA ON 
+			THE DISK.
+	
+	fulltest.c	Code exercising nearly all functions
+			in the TFS library, and performing a
+			bandwidth test.  It assumes that there
+			is already a file system on the disk, so
+			make one first with "tfsh -n mkfs 5000",
+			or run mkfs.btl.
+
+

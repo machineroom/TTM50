@@ -1,0 +1,66 @@
+
+
+
+scsi_initialise(3)     Transtech SCSI TRAM     scsi_initialise(3)
+
+
+
+NAME
+     scsi_initialise - Initialise SCSI TRAM
+
+SYNOPSIS
+     #include <scsi.h>
+
+     extern int scsi_id;
+
+     int scsi_initialise( void );
+
+DESCRIPTION
+     The function scsi_initialise initialises the Transtech  SCSI
+     TRAM.   It also sets the global variable scsi_id to the SCSI
+     id of the TRAM.
+
+RETURN VALUE
+     Returns the SCSI id of the TRAM  on  successful  initialisa-
+     tion.  On error returns a negative integer.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 1.0         Last change: 25 Mar 1993                    1
+
+
+

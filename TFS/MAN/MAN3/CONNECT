@@ -1,0 +1,66 @@
+
+
+
+tfs_connect(3)        Transtech File System        tfs_connect(3)
+
+
+
+NAME
+     tfs_connect,  tfs_disconnect  -  start/stop  connection   to
+     remote TFS server
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_connect(Channel *to_tfs, Channel *from_tfs,
+               int uid, int gid, int auth)
+
+     int tfs_disconnect(int pid)
+
+
+DESCRIPTION
+     These  functions  are  used  when  the  remote  TFS  library
+     (rtfs.lib)  is  being  used in conjuction with a TFS server.
+     The only differences between the remote TFS  and  local  TFS
+     are in the initialization and termination procedures.
+
+     Code running with the remote library can not call  tfs_init,
+     tfs_mount, tfs_logon, tfs_logoff or tfs_terminate.  The ini-
+     tialization, mounting and termination of the file system  is
+     performed by the server, and there is no equivalent to these
+     routines in the remote library.  tfs_connect is analogous to
+     tfs_logon, and tfs_disconnect is analogous to tfs_logoff.
+
+     tfs_connect takes parameters specifying a pair  of  channels
+     for  communication with the server, and the user- and group-
+     id. "auth" is a intended as a security  measure  to  control
+     access  to  the  file system. It is ignored by tfserver, but
+     must be used where the TFS server may be accessed by several
+     users.
+
+     tfs_connect returns an integer, which must be  used  as  the
+     "pid"  for all the other routines in the remote TFS library.
+     A value of -1 is returned on error.
+
+     tfs_disconnect closes down the  conversation  with  the  TFS
+     server, returning zero on success and -1 on failure.
+
+     tfs_connect is not applicable to the local TFS library.
+
+SEE ALSO
+     tfserver(2)
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

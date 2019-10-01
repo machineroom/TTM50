@@ -1,0 +1,66 @@
+
+
+
+scsi_value(3)          Transtech SCSI TRAM          scsi_value(3)
+
+
+
+NAME
+     scsi_get_value, scsi_set_value - Get and set SCSI  parameter
+     value
+
+SYNOPSIS
+     #include <scsi.h>
+
+     unsigned scsi_get_value( void *source, int length );
+     void scsi_set_value( void *dest, unsigned value, int length );
+
+DESCRIPTION
+     These functions are used to get and set parameters stored in
+     SCSI format i.e.  big endian with no word alignment.
+
+     The function scsi_get_value returns the  value  starting  at
+     the location pointed to by source of length bytes.
+
+     The function scsi_set_value  sets  to  value  the  parameter
+     starting  at  the  location  pointed  to by source of length
+     bytes.
+
+PARAMETERS
+     source
+          Pointer to the SCSI parameter.
+
+     length
+          Length in bytes of the SCSI parameter.
+
+     value
+          The value to set the SCSI parameter.
+
+     It is the programmer's responsibility to ensure the validity
+     of the parameter lengths and values.
+
+RETURN VALUE
+     The function scsi_get_value returns the value  of  the  SCSI
+     parameter.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 1.0         Last change: 25 Mar 1993                    1
+
+
+

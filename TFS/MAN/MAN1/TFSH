@@ -1,0 +1,330 @@
+
+
+
+tfsh(1)                        TFS                        tfsh(1)
+
+
+
+NAME
+     tfsh - Transtech File System shell utilities
+
+SYNOPSIS
+     tfsh [dev] [-n] [ cmd args ... ]
+
+
+DESCRIPTION
+     tfsh is a convenient set of utilities for  using  the  Tran-
+     stech File System from the host machine.  It has an interac-
+     tive mode, in which a prompt is given and commands are  read
+     from  the  standard  input, and a mode in which a command is
+     taken from the tfsh command line.
+
+     When tfsh is executed without  any  arguments  (or  with  an
+     iserver device specifier only), it logs onto the file system
+     using your current user and group IDs, and  changes  to  the
+     directory given in the environment variable TFS_HOME.  Under
+     DOS, the user and group IDs are taken from  the  environment
+     variables TFS_UID and TFS_GID.
+
+     The arguments are as follows:
+
+     dev  Any options recognised by  iserver  can  be  given,  to
+          indicate which device to use.
+
+     -n   Don't mount the file system or  logon.   This  must  be
+          used  if  you  wish  to  format  a  disk  or make a new
+          filesystem.
+
+     cmd args ...
+          The given command is executed. tfsh terminates when the
+          command is complete.  Interactive mode is not entered.
+
+COMMANDS
+     Command lines are processed before being executed to substi-
+     tute  filenames  in arguments containing * or ?.  Such argu-
+     ments are expanded into a list of filenames by  replacing  *
+     with  zero or more characters, and ? with any single charac-
+     ter.  If no filenames match the pattern, the  command  fails
+     with an error message.
+
+     The following commands are accepted. Optional arguments  are
+     in  square  brackets.  Arguments in angle brackets represent
+     variable arguments, those not in angle  brackets  should  be
+     typed in literally. Three dots indicates that the last argu-
+     ment can be repeated any number of times.
+
+     exit or quit
+          The interactive session is terminated.
+
+     help A help screen is displayed, giving the command syntax.
+
+
+
+Release 2.0         Last change: 20 Feb 1993                    1
+
+
+
+
+
+
+tfsh(1)                        TFS                        tfsh(1)
+
+
+
+     format
+          Format the disk.  This will distroy all information  on
+          the  disk,  and  is almost never necessary.  Most disks
+          are supplied pre-formatted.  This command can  only  be
+          given when the prompt is "not mounted".
+
+     mkfs <inodes>
+          Make a new file system on the disk. This  will  distroy
+          all  information on the disk.  It is required the first
+          time TFS is run on a disk. <inodes> is a decimal number
+          giving  the maximum number of files or directories that
+          can be stored on the disk. A value  of  about  5000  is
+          recommended.   This  command can only be given when the
+          prompt is "not mounted".
+
+     mount [ fsck ]
+          Mount the file  system.   If  the  "fsck"  argument  is
+          given, a file system check is always performed.  If the
+          "fsck" argument is not given, a file  system  check  is
+          only  performed  if the previous use of the file system
+          did not terminated cleanly, and for the first mount  of
+          a  newly created file system.  This command can only be
+          given when the prompt is "not mounted".
+
+     sync [ <blocks> ]
+          The state of the file system is  written  back  to  the
+          disk, ensuring that all data written so far is recover-
+          able if the file system is terminated unexpectedly.  If
+          a  decimal number of blocks is given, a partial sync of
+          that number of blocks is performed.
+
+     logon <uid> <gid>
+          Log onto the file system with the given user and  group
+          IDs.  This command can only be given when the prompt is
+          "not logged on".
+
+     mkdir <path> ...
+          Make one of more directories.  The path up to  the  new
+          directory  must exist, and have appropriate permissions
+          for creation of the directory.  The new directories are
+          given  read, write and search permission for the owner,
+          and read and search permissions for the group and  oth-
+          ers.
+
+     cd <path>
+          Change directory to the given  directory.   The  prompt
+          changes to display the current directory.
+
+     pwd  Print the current directory.
+
+     ls [ <path> ... ]
+          List files or directories.  If no arguments are  given,
+
+
+
+Release 2.0         Last change: 20 Feb 1993                    2
+
+
+
+
+
+
+tfsh(1)                        TFS                        tfsh(1)
+
+
+
+          the  current  directory  is listed. If an argument is a
+          file, information on the file is printed.  If the argu-
+          ment is a directory, the contents of that directory are
+          listed.  The listing is similar  to  that  of  "ls  -l"
+          under  unix,  giving  the  access modes, number of hard
+          links, the owner's user and group IDs, size  in  bytes,
+          modification date and the name of the file.
+
+     download <hostfile> ...  <tfspath>
+          Copies files from the host to the TFS. If <tfspath>  is
+          not  an existing directory, then only one host file may
+          be specified,  and  it  is  copied  to  <tfspath>.   If
+          <tfspath> exists as a file, it is overwritten.
+
+          If <tfspath> is a directory, then more  than  one  host
+          file  may  be specified, and they are copied to the TFS
+          directory, retaining the last component of their names.
+          Host directories cannot be copied, and filename substi-
+          tution is not performed on host  files.  However,  when
+          tfsh is invoked from a Unix shell, with a download com-
+          mand on the command line, then Unix filename  substitu-
+          tion  can be performed to get a list of host filenames.
+          To copy complete directory trees, use the tar command.
+
+     upload <tfsfile> ... <hostpath>
+          Copies files from  TFS  to  the  host.   If  <hostpath>
+          exists  as a directory, then one or more <tfsfile>s are
+          copied into it, retaining the last component  of  their
+          pathname.   If  <hostpath> is not a directory, only one
+          TFS file may be given.
+
+          Filename substitution may be used to obtain a  list  of
+          files  to  upload.   However,  directories  may  not be
+          uploaded. To copy complete directory trees, use the tar
+          command.
+
+     rm [-r] <path> ...
+          Remove the given files.  If -r is  given,  then  direc-
+          tories and their contents are removed, otherwise direc-
+          tories are not removed.
+
+     rmdir <path> ...
+          Remove directories. The path must be  an  empty  direc-
+          tory.
+
+     source <cmdfile>
+          The <cmdfile> is read from the host, and  its  contents
+          are  executed  as tfsh commands.  Note that the command
+          file exists on the host, not on the TFS.  During execu-
+          tion,  command-line prompts are not given, and the com-
+          mands are not echoed to the screen.
+
+
+
+
+Release 2.0         Last change: 20 Feb 1993                    3
+
+
+
+
+
+
+tfsh(1)                        TFS                        tfsh(1)
+
+
+
+     ln <filename> <linkname>
+          Create a hard link to an existing file.
+
+     mv <files> ... <path>
+          Move or rename files or directories.  If  <path>  is  a
+          directory,  the  <files> are moved into that directory.
+          If <path> does not exist, only one <file> may be given,
+          and  it  is  renamed  as <path>.  If <path> exists as a
+          file, then the command fails.  Directories may also  be
+          renamed  or moved, and their contents are automatically
+          moved.
+
+     cp [-r] <files> ... <path>
+          Copy files or directories. If <path>  is  a  directory,
+          the  <files>  are copied into that directory. If <path>
+          does not exist, only one <file> may be given, and it is
+          copied to <path>.  If <path> exists as a file, the file
+          is overwritten.  Directories, and their  contents,  are
+          only copied if the -r option is given.
+
+     du [-s] [ <path> ... ]
+          Prints amount of disk space  used  by  directories  and
+          their  sub-directories.  If no arguments are given, the
+          current directory is used.  If the -s option is  given,
+          disk space used by sub-directories is not printed.
+
+     chmod <mode> <files>
+          Change the access permissions of  the  given  files  or
+          directories.  The mode argument is an octal number giv-
+          ing the permission to read, write and execute or search
+          for the owner, group and others users.
+
+     find <path> ... [ -type f|d ] -print
+          Prints names of files or directories, recursively  des-
+          cending  the  directory  structure.   If  "-type  f" is
+          given, only files are printed,  and  if  "-type  d"  is
+          given,  only  directories  are  printed. Otherwise both
+          files and directories are printed.
+
+     tar c|x[v][f <tarfile>] <paths> ...
+          Create or extract standard tar format files. The  first
+          letter  of  the  first  argument  specifies  whether to
+          create (c) or extract  (x).  The  modifier  'v'  causes
+          information  on each file or directory to be printed as
+          it is processed. The modifier 'f' causes the next argu-
+          ment  to  be used as the name of the tarfile to be read
+          or written.  The tarfile name  is  interpreted  on  the
+          host, not on the TFS disk.  If no tarfile is specified,
+          the standard input or standard output are used,  allow-
+          ing the command to be used in pipes from Unix.
+
+          Under Unix, the tarfile should not be  a  tape  device,
+
+
+
+Release 2.0         Last change: 20 Feb 1993                    4
+
+
+
+
+
+
+tfsh(1)                        TFS                        tfsh(1)
+
+
+
+          because the blocking factor may be wrong. It is best to
+          pipe the output through dd(1) to control  the  blocking
+          factor.
+
+     df   Print the amount of disk space available.  The  display
+          shows  the  total size of the disk, the amount of space
+          used, the amount free, and the  percentage  used.   The
+          second line shows the total number of inodes (slots for
+          files or directories), the number used, the number free
+          and the percentage used.
+
+     offline
+          Terminate the shell, having  put  the  disk  "offline".
+          That  is  to  say,  the drive motor is stopped and (for
+          removable media devices) media removal is allowed.  The
+          motor  may  be  restarted by running tfsh again, or any
+          other program that uses tfs.
+
+ENVIRONMENT
+     TFS_HOME
+          Initial directory in the TFS directory structure.
+
+     TFS_UID
+          User ID (decimal number) (DOS systems only).
+
+     TFS_GID
+          Group ID (decimal number) (DOS systems only).
+
+BUGS
+     Certain character sequences on the command line  are  inter-
+     preted  by  iserver, limiting the commands that can be given
+     on the command line. The sequence "/s" or "-s" cannot appear
+     as  part of a file name on the tfsh command line.  As a wor-
+     karound, create a temporary file containing the desired com-
+     mands, and execute it with "tfsh source tmpfile".
+
+
+
+SEE ALSO
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 20 Feb 1993                    5
+
+
+
+
+
+

@@ -1,0 +1,198 @@
+
+
+
+tfs_errno(3)          Transtech File System          tfs_errno(3)
+
+
+
+NAME
+     tfs_errno - Variable indicating the success of the  previous
+     tfs function.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_errno
+
+DESCRIPTION
+     After returning from a tfs function, tfs_errno indicates the
+     success  of the operation.  If the operation was successful,
+     tfs_errno is set to TFS_OK.  If an error occurred during the
+     operation, tfs_errno is set to one of the following values:
+
+     TFS_EAGAIN
+          Resource temporarily unavailable.  When  logging  in  a
+          new  process,  there  is  currently  room  for  no more
+          processes, or when initialising a TTM11-2 TRAM, command
+          tables could not be allocated.
+
+     TFS_EACCES
+          Permission denied.  An attempt was  made  to  access  a
+          file  in a way forbidden by its file access permissions
+          (RWX-bits).
+
+     TFS_EBADF
+          Bad file descriptor.  A file  descriptor  argument  was
+          out  of  range,  referred  to  no  open  file or a read
+          (write) request was made to a file that was  only  open
+          for writing (reading).
+
+     TFS_EBUSY
+          Resource busy.  An attempt was made to make a file sys-
+          tem,  format  or mount a disk that was already mounted,
+          or to remove the root directory  or  a  directory  that
+          some process has as current directory.
+
+     TFS_EEXIST
+          File exists.  An attempt to create  a  directory  entry
+          (with   tfs_open(),  tfs_link()  or  tfs_mkdir())  that
+          already existed.
+
+     TFS_EFBIG
+          File too large.  The size of the file would exceed  the
+          maximum.
+
+     TFS_EINVAL
+          Invalid argument.  One of the  arguments  supplied  was
+          illegal (e.g. out of range).
+
+     TFS_EIO
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+
+
+
+
+tfs_errno(3)          Transtech File System          tfs_errno(3)
+
+
+
+          Input/output error.  A  physical  error  has  occurred.
+          This may be a bad sector on the disk or a SCSI protocol
+          error.
+
+     TFS_EISDIR
+          Is a directory.  An attempt was made to open  a  direc-
+          tory for writing.
+
+     TFS_ENAMETOOLONG
+          File name too  long.   The  length  of  the  path  name
+          exceeded TFS_PATH_MAX or a path name component exceeded
+          TFS_NAME_MAX.
+
+     TFS_ENFILE
+          Too many open files in system.   The  file  system  has
+          reached  its  limit  for simultaneous open files and no
+          more files can be opened before some  other  files  has
+          been closed.
+
+     TFS_ENOENT
+          No such file or directory.  A component of a  specified
+          path  name did not exist, or the path name was an empty
+          string.
+
+     TFS_ENOSPC
+          No space left on disk.  When creating  a  new  file  or
+          directory,  there  were  no more inodes on the disk, or
+          when extending a file or directory, there were no  more
+          data blocks on the disk.
+
+     TFS_ENOTDIR
+          Not a directory.  A component  of  the  specified  path
+          name existed, but was not a directory, when a directory
+          was expected.
+
+     TFS_ENOTEMPTY
+          Directory not empty.  An attempt was made to  remove  a
+          non-empty directory.
+
+     TFS_EMFILE
+          Too many open files.  An attempt was made to open  more
+          than the maximum number of (TFS_OPEN_MAX) file descrip-
+          tors allowed in this logical process.
+
+     TFS_EMLINK
+          Too many links.  An attempt was made to have  the  link
+          count of a single file exceed TFS_LINK_MAX.
+
+     TFS_EPERM
+          Operation not permitted.  An attempt was made  to  per-
+          form  an illegal operation or an operation only permit-
+          ted by the owner of a file or the super-user.
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    2
+
+
+
+
+
+
+tfs_errno(3)          Transtech File System          tfs_errno(3)
+
+
+
+BUGS
+     Normally an operation  is  terminated  immediately  when  an
+     error  occurs.  But  if  the operation involves manipulating
+     important data structures, recovery (in order  to  keep  the
+     file  system  consistent) will be attempted before returning
+     from the function. If further errors  occur  during  such  a
+     recovery  attempts,  the error code returned does not neces-
+     sarily correspond to the original error, but may reflect one
+     of the subsequent error conditions.
+
+     In an environment where several processes  are  logged  onto
+     the file system, tfs_errno may be changed by another process
+     between an operation and testing  tfs_errno.   tfs_geterr(3)
+     provides  separate  error values for each logged on process.
+     tfs_errno  is  retained  for  back-compatability,  and   for
+     reporting  errors  in  initialisation  of  the  file-system,
+     before any processes have logged on.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    3
+
+
+

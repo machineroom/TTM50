@@ -1,0 +1,264 @@
+
+
+
+scsi_target(3)         Transtech SCSI TRAM         scsi_target(3)
+
+
+
+NAME
+     scsi_target - Initialise SCSI target driver
+
+SYNOPSIS
+     #include <scsi.h>
+
+     int scsi_target( int (*callback)( struct scsi_target *target ) );
+
+DESCRIPTION
+     Registers a target driver  callback  function  allowing  the
+     SCSI TRAM function in target mode.
+
+     Although there can be many commands in progress from various
+     initiators   using  various  target  logical  units,  it  is
+     guaranteed that only one process can call the  target  call-
+     back  function  at  a time unless the user explicitly allows
+     this by calling scsi_unlock.  This would  normally  only  be
+     done after a disconnect and scsi_lock would be used prior to
+     reselection.
+
+PARAMETERS
+     callback
+          Pointer to a callback function which performs the  dev-
+          ice specific target functions.
+
+     The elements of the  scsi_target  structure,  a  pointer  to
+     which  is the sole argument to the target callback function,
+     are:
+
+     nexus
+          The initiator id, the target id and the target  logical
+          unit number (lun).
+
+     initiator_device
+          Pointer to the device structure for the initiator.
+
+     lun  The actual logical unit number  of  the  target  device
+          selected.   In the current implementation this normally
+          has the same value as the lun field  of  the  structure
+          pointed to by nexus.  If the target is selected without
+          the ATN signal asserted (and hence not followed  by  an
+          IDENTIFY  message), then the lun field of the structure
+          pointed   to   by   nexus   is   set   to   the   value
+          SCSI_UNKNOWN_LUN  and the actual logical unit number is
+          determined from the command descriptor block cdb.
+
+     cdb  Command descriptor block received from the initiator.
+
+     data Pointer to data transferred to or from  the  initiator.
+          This  parameter  must  point  to memory allocated using
+          scsi_malloc.
+
+
+
+
+Release 1.0         Last change: 25 Mar 1993                    1
+
+
+
+
+
+
+scsi_target(3)         Transtech SCSI TRAM         scsi_target(3)
+
+
+
+     data_len
+          Length of data.
+
+     status
+          Status of current or last completed command.
+
+     sense_pending
+          Flag to specify that sense data is  pending.   Normally
+          this  indicates  that this nexus is in a UNIT ATTENTION
+          condition.
+
+     sense
+          SCSI 2 sense record.  Used to record sense data between
+          commands performed with this nexus.
+
+     reason
+          Reason why the target callback function was invoked.
+
+     callback
+          Pointer to target driver callback function.
+
+     flags
+          Indicates if  the  target  logical  unit  was  selected
+          without ATN asserted and if disconnects are disabled.
+
+     There is one target structure  allocated  using  scsi_malloc
+     per possible nexus.
+
+     The SCSI system calls the function pointed  to  by  callback
+     when  it  requires  it  to  perform  some  action e.g. after
+     receiving a command descriptor block.  It  sets  the  reason
+     field to a value defined in scsi.h and listed below to indi-
+     cate the reason why the function is  called.   The  callback
+     function  should  return  a  value to indicate the action it
+     requires the SCSI system to perform as described below.
+
+     The possible values of the reason  field  and  the  possible
+     return values of the user's callback function are:
+
+     STARG_COMPLETE
+          This value is returned  by  the  callback  function  to
+          indicate  that the SCSI command has completed.  Set the
+          status field with the appropriate SCSI status value.
+
+     STARG_COMMAND
+          This value of reason indicates that a command  descrip-
+          tor block has been received.  This is stored in the cdb
+          array.
+
+     STARG_DATA_IN
+          This value is returned  by  the  callback  function  to
+          indicate that data_len bytes of data pointed to by data
+
+
+
+Release 1.0         Last change: 25 Mar 1993                    2
+
+
+
+
+
+
+scsi_target(3)         Transtech SCSI TRAM         scsi_target(3)
+
+
+
+          are to be transferred from the target to the initiator.
+          When  the  SCSI  system  has completed this succesfully
+          then the callback function is called with this value of
+          reason.
+
+     STARG_DATA_OUT
+          This value is returned  by  the  callback  function  to
+          indicate that data_len bytes of data pointed to by data
+          are to be transferred from the initiator to the target.
+          When  the  SCSI  system  has completed this succesfully
+          then the callback function is called with this value of
+          reason.
+
+     STARG_SAVE_AND_DISCONNECT
+          This return value causes a  SAVE  DATA  POINTER  and  a
+          DISCONNECT  message  to  be sent to the initiator.  The
+          SCSI system then disconnects  from  the  SCSI  bus  and
+          calls callback with reason set to STARG_DISCONNECT.
+
+     STARG_DISCONNECT
+          This return value causes a  DISCONNECT  message  to  be
+          sent  to  the  initiator.  The SCSI system then discon-
+          nects from the SCSI bus and calls callback with  reason
+          set to this value.
+
+     STARG_RESELECT
+          This return value is  used  to  reselect  an  initiator
+          after  a disconnect to resume the current SCSI command.
+          When reselection has occured then  callback  is  called
+          with reason set to this value.
+
+     STARG_RESTART
+          This return value is used if an abort or  reset  condi-
+          tion  is  detected  after  a  disconnnect  but before a
+          reselect.
+
+     STARG_ABORT
+          This value of reason indicates that the  initiator  has
+          sent  an  ABORT message to the target.  The outstanding
+          command (if any) should then be aborted for  the  indi-
+          cated nexus.  Return STARG_ABORT when this occurs.
+
+     SCSI_RESET
+          This value of reason indicates that either a  SCSI  bus
+          reset  has  been  detected  or  that  this  device  has
+          received a BUS DEVICE RESET message.  Return SCSI_RESET
+          when  this  occurs.  Note that a single reset can cause
+          callback to be called multiple times with this value of
+          reason.
+
+     SCSI_NOT_OK
+          Return this value when all else fails.  This causes the
+
+
+
+Release 1.0         Last change: 25 Mar 1993                    3
+
+
+
+
+
+
+scsi_target(3)         Transtech SCSI TRAM         scsi_target(3)
+
+
+
+          SCSI system to assert the SCSI reset signal.
+
+RETURN VALUE
+     This function never returns on success, it returns  a  nega-
+     tive integer on error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 1.0         Last change: 25 Mar 1993                    4
+
+
+

@@ -1,0 +1,80 @@
+/* @(#)test.cfs	1.1 */
+
+T805 (memory = 4M) SCSI_TRAM;
+T805 (memory = 1M) USER_TRAM;
+
+connect USER_TRAM.link[0] to host;
+connect USER_TRAM.link[2] to SCSI_TRAM.link[1];
+
+val n_clients 2;
+
+val TFS_WRITE_BACK 9;
+val TFS_WRITE_THROUGH 8;
+
+process ( stacksize=20K, heapsize=200K,
+	  interface ( 
+		input fs, output ts,
+		output tc[n_clients],
+		input fc[n_clients],
+		int n=n_clients,
+		int fs_id = 0,
+		int target=0,
+		int link=0,
+		int mode=TFS_WRITE_BACK,
+		int msg_level=2
+		)
+	) server;
+
+
+process ( stacksize=10K, heapsize=40K,
+	  interface ( input fs, output ts,
+			input ftfs, output ttfs,
+			int num)
+	) user[n_clients];
+
+
+rep i=0 for n_clients
+{
+	user[i](num=i);
+}
+
+
+process ( stacksize = 10K, heapsize=100K,
+	  interface ( input fs, output ts,
+			input fc[n_clients+1], output tc[n_clients+1],
+			int n=n_clients+1
+		)
+	) mux;
+
+input fs;
+output ts;
+
+rep i=0 for n_clients
+{
+	connect user[i].ftfs to server.tc[i];
+	connect user[i].ttfs to server.fc[i];
+
+	connect user[i].fs to mux.tc[i];
+	connect user[i].ts to mux.fc[i];
+}
+
+connect server.fs to mux.tc[n_clients];
+connect server.ts to mux.fc[n_clients];
+
+connect mux.fs to fs;
+connect mux.ts to ts;
+
+place fs on host;
+place ts on host;
+place server on SCSI_TRAM;
+use "tfserver.lku" for server;
+
+place mux on USER_TRAM;
+use "hostmux.lku" for mux;
+
+rep i=0 for n_clients
+{
+	place user[i] on USER_TRAM;
+	use "fulltest.lku" for user[i];
+}
+

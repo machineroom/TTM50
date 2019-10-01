@@ -1,0 +1,66 @@
+
+
+
+scsi_printf(3)         Transtech SCSI TRAM         scsi_printf(3)
+
+
+
+NAME
+     scsi_printf - SCSI library debug message function
+
+SYNOPSIS
+     #include <scsi.h>
+
+     extern int (*scsi_printf)( const char *fmt, ... );
+
+DESCRIPTION
+     Pointer to an application defined function used by the  SCSI
+     library to report error messages.
+
+     When the SCSI system detects an error, it calls the function
+     pointed to by scsi_printf (if not NULL).  A user application
+     can set this pointer (for instance to point to the  function
+     printf) allowing user applications to display any error mes-
+     sages.
+
+PARAMETERS
+     fmt  Format string as used by printf.
+
+     ...  Values to be formatted into the message as  defined  by
+          fmt.
+
+RETURN VALUE
+     Returns the value returned by the  function  pointed  to  be
+     scsi_printf.
+
+NOTES
+     The function used to  handle  error  messages  must  be  re-
+     entrant.
+
+     It is possible in certain circumstances for  error  messages
+     to be generated during SCSI commands which subsequently com-
+     plete successfully.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 1.0         Last change: 25 Mar 1993                    1
+
+
+

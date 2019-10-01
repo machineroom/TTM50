@@ -1,0 +1,66 @@
+
+
+
+tfs_mkdir(3)          Transtech File System          tfs_mkdir(3)
+
+
+
+NAME
+     tfs_mkdir - Creates a new directory.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_mkdir( int pid, char *path, u_short perms )
+
+ARGUMENTS
+     int pid
+          Process ID of the logical process.
+
+     char *path
+          Name of new directory.
+
+     u_short perms
+          The permission bits of the new directory.
+
+DESCRIPTION
+     A new empty (only containing  '.'  and  '..')  directory  is
+     created  with permission bits perms modified by this logical
+     process' UMASK.
+
+     The new directory's owner and group are set to the  UID  and
+     GID of this logical process.
+
+RETURNS
+     Returns zero on success and -1 on  error.   tfs_errno  indi-
+     cates the nature of the error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

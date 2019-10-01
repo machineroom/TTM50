@@ -1,0 +1,66 @@
+
+
+
+tfs_unlink(3)         Transtech File System         tfs_unlink(3)
+
+
+
+NAME
+     tfs_unlink - Removes a link to a file.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_unlink( int pid, char *path )
+
+ARGUMENTS
+     int pid
+          Process ID of the logical process.
+
+     char *path
+          Name of the link.
+
+DESCRIPTION
+     The link named by path is  removed.  If  path  is  the  last
+     reference  to  a  file and no process has the file open, the
+     file itself is removed; if the  file  is  open,  it  is  not
+     removed  until the last file descriptor referencing the file
+     is closed.
+
+     Directories cannot  be  unlinked  but  must  be  removed  by
+     tfs_rmdir().
+
+RETURNS
+     Returns zero on success and -1 on  error.   tfs_errno  indi-
+     cates the nature of the error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

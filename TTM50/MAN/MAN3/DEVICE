@@ -1,0 +1,132 @@
+
+
+
+scsi_device(3)         Transtech SCSI TRAM         scsi_device(3)
+
+
+
+NAME
+     scsi_device - Return SCSI device information
+
+SYNOPSIS
+     #include <scsi.h>
+
+     struct scsi_device *scsi_device( int id );
+
+DESCRIPTION
+     Returns information on the specified SCSI target device.
+
+     This function returns a pointer to  a  structure  containing
+     device information gathered by scsi_find_device().
+
+     The elements of the structure scsi_device defined in  scsi.h
+     are:
+
+     id   SCSI device id
+
+     unit Logical unit records.  See below.
+
+     type SCSI device type.
+
+     id   Target device id.
+
+     cycles
+          Synchronous transfer period for sending  data  in  SCSI
+          clock cycles.
+
+     period
+          Synchronous transfer period for receiving data in units
+          of 4ns.
+
+     offset
+          Synchronous REQ/ACK offset.
+
+     flags
+          Internal flags.
+
+     The elements of the logical unit structure scsi_unit defined
+     in scsi.h are:
+
+     valid
+          Non-zero if the unit structure contains valid data.
+
+     lun  Logical unit number.
+
+     inquiry_length
+          Length of valid inquiry data.
+
+     inquiry
+          Inquiry data.
+
+
+
+Release 1.0         Last change: 25 Mar 1993                    1
+
+
+
+
+
+
+scsi_device(3)         Transtech SCSI TRAM         scsi_device(3)
+
+
+
+     parameter
+          Device type specific parameters.  See scsi.h.
+
+RETURN VALUE
+     Returns a pointer to a structure defined in scsi.h  contain-
+     ing  information on the SCSI target device.  Returns NULL on
+     error.
+
+SEE ALSO
+     scsi_find_device(3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 1.0         Last change: 25 Mar 1993                    2
+
+
+

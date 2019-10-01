@@ -1,0 +1,63 @@
+
+					@(#)readme	1.1
+		
+		TFS shell examples
+
+Two examples are given: one showing how to link tfsh up with
+the remote library (so that the shell can be run across a 
+transputer network), and one showing how to add extra functionality
+to the shell.
+
+The following files are provided:
+
+	tfs_util.c	Top-level source code for the standard shell.
+	
+	tfs_util.h	header file.
+
+	rtfsh.c		Top-level source code for the remote shell.
+
+	bench.c		Source code for the benchmark command.
+
+	libs/		directory containing object files for the
+			shell commands.  These can be linked with
+			either the local or remote library, together
+			with one of the top-level files above.
+		
+	example.mk, make.bat
+			make file and build script for unix and DOS
+			respectively
+
+The remote shell, rtfsh.c, is derived from the normal (local) shell
+tfs_util.c, by deleting all reference to format, mount, mkfs, logon,
+logoff, etc, and adding calls to tfs_connect and tfs_disconnect. 
+The -n option, to present an interactive interface without mounting
+the disk, is also removed.
+
+The remote shell demonstrates that the local and remote tfs libraries
+are compatible, at object file level.  It could be the basis of
+a shell that talks to more than one disk.
+
+
+Bench.c provides an example of how to add a command to the shell.
+In the top-level file, you add a command structure to the table
+"Command" as follows:
+
+	"benchmark", "<blocksize> <blocks>", benchmark,
+
+The entries are: the name of the command (as typed at the prompt);
+a usage string displayed by the "help" command; and the name
+of the function to call for the command.
+
+All commands take the same parameters:
+
+	void benchmark( struct command *command, int argc, char **argv)
+
+A prototype function definition should be added to tfs_util.h.
+
+The command structure provides the usage string, should the command
+need it. argc and argv provide the command line arguments to the 
+function. argv[0] is always the command name. The remaining arguments
+are processed to expand wild-cards, and are presented in the conventional
+"C" manner.
+
+

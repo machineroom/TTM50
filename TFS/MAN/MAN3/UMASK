@@ -1,0 +1,66 @@
+
+
+
+tfs_umask(3)          Transtech File System          tfs_umask(3)
+
+
+
+NAME
+     tfs_umask - Set file creation mask.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     u_short tfs_umask( int pid, u_short cmask )
+
+ARGUMENTS
+     int pid
+          Process ID of the logical process.
+
+     u_short c_mask
+          The new UMASK.
+
+DESCRIPTION
+     This logical process UMASK is set to c_mask.  Other bits  in
+     c_mask not relevant to UMASK are ignored.
+
+     When a new file is created, its permission bits are  set  as
+     specified,  except  those  bits that are set in the process'
+     UMASK.
+
+RETURNS
+     Returns the old UMASK on success. The only possible  failure
+     is  if  the  specified  process  ID is invalid. In that case
+     c_mask is returned and tfs_errno is set to EINVAL.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

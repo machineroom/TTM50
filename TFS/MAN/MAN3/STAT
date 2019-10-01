@@ -1,0 +1,132 @@
+
+
+
+tfs_stat(3)           Transtech File System           tfs_stat(3)
+
+
+
+NAME
+     tfs_stat, tfs_fstat - Get file information.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_stat( int pid, char *path, struct tfs_stat_t *sbuf )
+
+     int tfs_fstat( int pid, int filedes,
+      struct tfs_stat_t *sbuf )
+
+ARGUMENTS
+     int pid
+          Process ID of the logical process.
+
+     char *path
+          Name of the file.
+
+     int filedes
+          File descriptor of file.
+
+     tfs_stat_t *sbuf
+          Pointer to structure to fill out with information.
+
+DESCRIPTION
+     The structure referenced by sbuf is filled out with informa-
+     tion pertaining to the file specified by path or filedes.  A
+     tfs_stat_t structure contains the following fields:
+
+     u_short st_mode
+          The file's type and permissions.
+
+     unsigned st_ino
+          The file's inode number.
+
+     unsigned st_dev
+          The device ID (as specified at tfs_init()).
+
+     u_short st_nlink
+          The number links to this inode.
+
+     u_short st_uid
+          The UID of the file's owner.
+
+     u_short st_gid
+          The GID of the file's group.
+
+     unsigned st_size
+          The length of the file.
+
+     time_t st_mtime
+          Time of the last data modification.
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+
+
+
+
+tfs_stat(3)           Transtech File System           tfs_stat(3)
+
+
+
+     The st_mode field is the bitwise OR of the file's permission
+     bits (see tfs_chmod()) and the file's type. The file type is
+     one the two values:
+
+     TFS_I_REG
+          Regular file.
+
+     TFS_I_DIR
+          Directory.
+
+RETURNS
+     Returns zero on success and -1 on  error.   tfs_errno  indi-
+     cates the nature of the error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    2
+
+
+

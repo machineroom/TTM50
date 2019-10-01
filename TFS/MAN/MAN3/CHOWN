@@ -1,0 +1,66 @@
+
+
+
+tfs_chown(3)          Transtech File System          tfs_chown(3)
+
+
+
+NAME
+     tfs_chown - Change the owner and group of a file.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_chown( int pid, char *path, u_short owner,
+      u_short group )
+
+ARGUMENTS
+     int pid
+          Process ID of the logical process.
+
+     char *path
+          Name of the file.
+
+     u_short owner
+          The new owner.
+
+     u_short group
+          The new group.
+
+DESCRIPTION
+     The ownership of the specified  file  is  set  according  to
+     owner and group.
+
+     Only the super user is allowed to execute tfs_chown().
+
+RETURNS
+     Returns zero on success and -1 on  error.   tfs_errno  indi-
+     cates the nature of the error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

@@ -1,0 +1,66 @@
+
+
+
+tfs_logoff(3)         Transtech File System         tfs_logoff(3)
+
+
+
+NAME
+     tfs_logoff - Logoff a logical process.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_logoff( int pid )
+
+ARGUMENTS
+     int pid
+          Process ID of the logical process to log off.
+
+DESCRIPTION
+     If the specified process has any files open they are closed.
+     The process ID is then de-allocated and is now invalid until
+     again allocated by tfs_logon().
+
+RETURNS
+     Returns zero on success and -1 on  error.   tfs_errno  indi-
+     cates the nature of the error.
+
+
+AVAILABILITY
+     tfs_logoff is not available in the remote TFS library,  only
+     the local library.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

@@ -1,0 +1,132 @@
+
+
+
+scsi_command(3)        Transtech SCSI TRAM        scsi_command(3)
+
+
+
+NAME
+     scsi_command - Perform SCSI command
+
+SYNOPSIS
+     #include <scsi.h>
+
+     int scsi_command( struct scsi_address *address,
+      struct scsi_command *command );
+
+DESCRIPTION
+     Perform a SCSI command on the specified SCSI  target  device
+     and logical unit.
+
+     Only one outstanding SCSI command is allowed at a  time  per
+     logical unit on a device.  This function blocks if more than
+     one command is outstanding.
+
+     It is recommended  that  the  function  scsi_find_device  is
+     called  prior  to  using scsi_command for the first time for
+     the specified target device and logical unit.
+
+PARAMETERS
+     address
+          Pointer to a structure specifying the SCSI id  and  the
+          logical unit number (lun) of the target device on which
+          the SCSI command is to be performed.
+
+     command
+          Pointer to SCSI command structure.
+
+     The elements of the scsi_command structure are:
+
+     cdb  Pointer to command descriptor block specifying the SCSI
+          command to perform.
+
+     cdb_len
+          Length of command descriptor block.
+
+     data Pointer to data for the SCSI command.
+
+     data_len
+          Length of data.
+
+     residue
+          Length of data (as specified by  the  SCSI  saved  data
+          pointer) not transferred during command.
+
+     status
+          SCSI status of completed command.
+
+     flags
+          Flags for command.  See below.
+
+
+
+Release 1.0         Last change: 25 Mar 1993                    1
+
+
+
+
+
+
+scsi_command(3)        Transtech SCSI TRAM        scsi_command(3)
+
+
+
+     timeout
+          Timeout in seconds for the command.  Zero specifies  no
+          timeout.
+
+     The flags parameter is a logical or of the following:
+
+     SFLAG_DATA_IN
+          Data is to be transferred from the target.
+
+     SFLAG_DATA_OUT
+          Data is to be transferred to the target.
+
+     SFLAG_NO_DISCONNECTS
+          Disable disconnects during command.
+
+     SFLAG_NEGOTIATE_SYNCHRONOUS
+          Force negotiation  of  the  synchronous  data  transfer
+          rate.
+
+     SFLAG_NO_ATN
+          Don't assert ATN  on  selection.   Implicitly  disables
+          disconnects.
+
+RETURN VALUE
+     Returns zero on completing  the  SCSI  command.   Returns  a
+     negative  value  as  defined in scsi.h on failing to perform
+     the SCSI command.
+
+     If the SCSI command has completed but has  failed  for  some
+     reason  (as  defined  by  the target) then the function will
+     return zero but the status field of  the  command  structure
+     will  be  non-zero.  The residue field of the command struc-
+     ture may also be non-zero indicating that  not  all  of  the
+     data has been transferred between the TRAM and the target as
+     requested.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 1.0         Last change: 25 Mar 1993                    2
+
+
+

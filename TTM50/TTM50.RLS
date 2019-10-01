@@ -1,0 +1,13 @@
+TTM50 V2.0 DOS Wed Apr 28 09:39:26 BST 1993
+10
+bin/flash.btl	31226	37637
+bin/probe.btl	42458	31116
+bin/disktest.btl	50144	26196
+bin/ttm50tst.btl	21312	31763
+bin/flash.exe	12067	53740
+bin/probe.exe	12067	53740
+bin/ttm50tst.exe	12067	53740
+bin/disktest.exe	12067	53740
+libs/scsi.h	17289	21297
+libs/ttm50.lib	51661	39019
+8772

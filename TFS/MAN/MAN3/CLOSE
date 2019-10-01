@@ -1,0 +1,66 @@
+
+
+
+tfs_close(3)          Transtech File System          tfs_close(3)
+
+
+
+NAME
+     tfs_close - Closes a file.
+
+SYNOPSYS
+     Synopsis:
+
+     #include <tfs.h>
+
+     int tfs_close( int pid, int filedes )
+
+ARGUMENTS
+     int pid
+          Process ID of the logical process.
+
+     int filedes
+          The file descriptor of the file to close.
+
+DESCRIPTION
+     The specified file is closed and the file descriptor is  de-
+     allocated. Closing a file does not ensure that any modifica-
+     tions to the file actually has been written to the disk;  if
+     the   file  system  is  operating  in  write  back  mode,  a
+     tfs_sync() must be performed to ensure that.
+
+RETURNS
+     Returns zero on success and -1 on  error.   tfs_errno  indi-
+     cates the nature of the error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

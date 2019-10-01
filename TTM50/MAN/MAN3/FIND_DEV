@@ -1,0 +1,66 @@
+
+
+
+scsi_find_device(3)    Transtech SCSI TRAM    scsi_find_device(3)
+
+
+
+NAME
+     scsi_find_device - Find SCSI device information
+
+SYNOPSIS
+     #include <scsi.h>
+
+     struct scsi_device *scsi_find_device( struct scsi_address *address );
+
+DESCRIPTION
+     Finds information on the specified SCSI  target  device  and
+     logical unit.
+
+     On initialisation or after a bus or device reset performs  a
+     TEST  UNIT READY command with synchronous data transfer rate
+     negotiation and an INQUIRY command.
+
+     Device specific commands are performed and device parameters
+     obtained from the target:
+
+     Direct access
+          For direct access devices (e.g. disks),  a  START  STOP
+          UNIT command is performed to ensure that the disk motor
+          is switched on, then the last block  address  and  size
+          are determined using the READ CAPACITY command.
+
+     Sequential access
+          For sequential access devices (e.g. tapes), the minimum
+          and  maximum  block sizes are determined using the READ
+          BLOCK LIMITS command.
+
+     CD-ROM
+          For CD-ROM devices the last seek block size and address
+          (which may be after the last readable block address) is
+          determined using the READ CD-ROM CAPACITY command.
+
+PARAMETER
+     address
+          Pointer to a structure specifying the target device  id
+          and logical unit number.
+
+RETURN VALUE
+     Returns a pointer to a structure defined in scsi.h  contain-
+     ing  information on the SCSI target device and logical unit.
+     Returns NULL on error.
+
+
+
+
+
+
+
+
+
+
+
+Release 1.0         Last change: 25 Mar 1993                    1
+
+
+

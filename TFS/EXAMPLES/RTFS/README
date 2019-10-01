@@ -1,0 +1,21 @@
+
+					@(#)readme	1.1
+		Remote TFS Example
+
+In this example a user program is linked with rtfs.lib, and
+is placed in a configuration with tfserver.  Note that the
+rtfs calls are calls begining with "tfs_", and are the same
+as the local TFS library.  rtfs.lib can only be linked with
+user programs written in Inmos C. 
+
+rtfs.lib gives significant bandwidth advantages over iorouter.
+
+Virtual channel routing is required to configure this example,
+and is strongly recommended for all applications using tfserver.
+
+The number of user processes is controlled by the n_clients
+variable in the configuration file.
+
+The user program "fulltest.c" exercises the majority of tfs
+function calls.
+

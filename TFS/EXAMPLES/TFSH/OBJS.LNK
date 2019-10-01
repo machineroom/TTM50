@@ -1,0 +1,14 @@
+libs\args.t8x
+libs\bench.t8x
+libs\chmod.t8x
+libs\copy.t8x
+libs\df.t8x
+libs\du.t8x
+libs\find.t8x
+libs\getcwd.t8x
+libs\ls.t8x
+libs\misc.t8x
+libs\move.t8x
+libs\rm.t8x
+libs\tar.t8x
+libs\transfer.t8x

@@ -1,0 +1,94 @@
+/* @(#)test.cfs	1.2 */
+
+T805 (memory = 4M) SCSI_TRAM;
+T805 (memory = 1M) USER_TRAM;
+
+connect USER_TRAM.link[0] to host;
+connect USER_TRAM.link[2] to SCSI_TRAM.link[1];
+
+val n_clients 2;
+
+val TFS_WRITE_BACK 9;
+val TFS_WRITE_THROUGH 8;
+
+process ( stacksize=20K, heapsize=200K,
+	  interface ( 
+		input fs, output ts,
+		output tc[n_clients],
+		input fc[n_clients],
+		int n=n_clients,
+		int fs_id = 0,
+		int target=0,
+		int link=0,
+		int mode=TFS_WRITE_BACK,
+		int msg_level=2
+		)
+	) server;
+
+process ( stacksize=10K, heapsize=50K,
+	  interface ( input fs, output ts,
+			input fc, output tc,
+			char tag[4] = "TFS\0",
+			input ftfs, output ttfs,
+			int n=0
+		    )
+	) iorouter[n_clients];
+
+
+process ( stacksize=10K, heapsize=20K,
+	  interface ( input fs, output ts,
+			int num)
+	) user[n_clients];
+
+
+rep i=0 for n_clients
+{
+	user[i](num=i);
+}
+
+
+process ( stacksize = 10K, heapsize=100K,
+	  interface ( input fs, output ts,
+			input fc[n_clients+1], output tc[n_clients+1],
+			int n=n_clients+1
+		)
+	) mux;
+
+input fs;
+output ts;
+
+rep i=0 for n_clients
+{
+	connect iorouter[i].ftfs to server.tc[i];
+	connect iorouter[i].ttfs to server.fc[i];
+
+	connect iorouter[i].fs to mux.tc[i];
+	connect iorouter[i].ts to mux.fc[i];
+
+	connect user[i].fs to iorouter[i].tc;
+	connect user[i].ts to iorouter[i].fc;
+}
+
+connect server.fs to mux.tc[n_clients];
+connect server.ts to mux.fc[n_clients];
+
+connect mux.fs to fs;
+connect mux.ts to ts;
+
+place fs on host;
+place ts on host;
+place server on SCSI_TRAM;
+use "tfserver.lku" for server;
+
+place mux on USER_TRAM;
+use "hostmux.lku" for mux;
+
+rep i=0 for n_clients
+{
+	place iorouter[i] on USER_TRAM;
+	use "iorouter.lku" for iorouter[i];
+
+	place user[i] on USER_TRAM;
+	use "user.lku" for user[i];
+}
+

@@ -1,0 +1,66 @@
+
+
+
+tfs_format(3)         Transtech File System         tfs_format(3)
+
+
+
+NAME
+     tfs_format - Performs a low-level format of the disk.
+
+SYNOPSYS
+     #include <tfs.h>
+
+     int tfs_format( void )
+
+DESCRIPTION
+     A format command is sent to the drive which will then format
+     itself.  The drive will be formatted with its default inter-
+     leave factor.
+
+     Since most drives come pre-formatted from the  manufacturer,
+     this command is rarely needed.
+
+     The file system must have been initialised by tfs_init() and
+     no  disk  may have been mounted (by tfs_mount()) before cal-
+     ling tfs_format().
+
+RETURNS
+     Returns zero on success and -1 on  error.   tfs_errno  indi-
+     cates the nature of the error.
+
+AVAILABILITY
+     tfs_format is not available in the remote TFS library,  only
+     the local library.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 2.0         Last change: 25 Feb 1993                    1
+
+
+

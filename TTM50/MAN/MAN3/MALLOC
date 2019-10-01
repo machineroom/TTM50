@@ -1,0 +1,66 @@
+
+
+
+scsi_malloc(3)         Transtech SCSI TRAM         scsi_malloc(3)
+
+
+
+NAME
+     scsi_malloc, scsi_free - Allocate and free memory
+
+SYNOPSIS
+     #include <scsi.h>
+
+     void *scsi_malloc( size_t size );
+     void scsi_free( void *ptr );
+
+DESCRIPTION
+     The function scsi_malloc allocates memory on  the  optimised
+     for  availability for SCSI.  On the SCSI TRAM this allocates
+     off-chip memory as the  Transputer  on-chip  memory  is  not
+     available for DMA by the SCSI controller chip.
+
+     If data is specified to the function scsi_command  which  is
+     unavailable  to  the  SCSI  controller then its contents are
+     copied to or from memory (depending on the value  of  flags)
+     which is allocated using scsi_malloc.
+
+     The   function   scsi_free   frees   memory   allocated   by
+     scsi_malloc.
+
+     In target routines the data parameter of the  target  struc-
+     ture   should   only   point   to   memory  allocated  using
+     scsi_malloc.
+
+PARAMETERS
+     size Size in bytes of the memory to allocate.
+
+     ptr  Pointer to memory previously allocated by scsi_malloc.
+
+RETURN VALUE
+     The function scsi_malloc returns NULL if memory could not be
+     allocated or a pointer to the memory allocated on success.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Release 1.0         Last change: 25 Mar 1993                    1
+
+
+
